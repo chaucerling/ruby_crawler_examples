@@ -67,7 +67,7 @@ class JanDanCrawler
 
     # threads << Thread.new do
     #   loop do
-    #     sleep 0.1
+    #     sleep 0.01
     #     puts Thread.list.count
     #     break if Thread.list.count <= 2
     #   end

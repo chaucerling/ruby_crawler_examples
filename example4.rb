@@ -37,10 +37,10 @@ end
 def github_index()
   agent = Mechanize.new do |agent|
     agent.user_agent_alias = 'Mac Safari'
+    agent.cookie_jar.load('github_cookie.yml')
   end
-  agent.cookie_jar.load('github_cookie.yml')
+  p agent.cookie_jar.to_a
   puts agent.get("https://github.com").search('.alert').text
 end
 
-github_login()
 github_index()
