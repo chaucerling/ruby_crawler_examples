@@ -26,8 +26,7 @@ if config['cookies'].nil? || config['cookies'].empty?
   data = {
     login: config['github']['username'],
     password: config['github']['password'],
-    authenticity_token: authenticity_token,
-    commit: 'Sign in'
+    authenticity_token: authenticity_token
   }
   request.body = URI.encode_www_form(data)
   response = https.request(request)

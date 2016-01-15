@@ -1,6 +1,6 @@
 require 'thread'
 
-class Pool
+class ThreadPool
   def initialize(size)
     @size = size
     @queue = Queue.new
@@ -20,15 +20,15 @@ class Pool
     end
   end
 
-  # add schedule jobs
-  def schedule(*args, &block)
+  # add job to process
+  def process(*args, &block)
     @queue << [args, block]
   end
 
   # join all threads and exit them
-  def shutdown
+  def join
     @size.times do
-      schedule { throw :exit }
+      process { throw :exit }
     end
     @threads.each(&:join)
     @running = false
@@ -36,28 +36,28 @@ class Pool
   end
 end
 
-t_start = Time.now
-pool = Pool.new(10)
-
-10.times do |i|
-  pool.schedule(i+2) do |num|
-    sleep rand(2)
-    puts "Job #{num} finished by thread #{Thread.current[:id]}, Time:#{Time.now - t_start}\n"
-  end
-end
-
-puts "add task 1, Time:#{Time.now - t_start}\n"
-
-sleep 2
-
-10.times do |i|
-  pool.schedule(i+2) do |num|
-    puts "Job #{num} finished, Time:#{Time.now - t_start}\n"
-  end
-end
-
-puts "add task 2, Time:#{Time.now - t_start}\n"
-
-pool.shutdown
-
-at_exit { puts "exit, Time:#{Time.now - t_start}\n" }
+# t_start = Time.now
+# pool = Pool.new(10)
+#
+# 10.times do |i|
+#   pool.process(i+2) do |num|
+#     sleep rand(2)
+#     puts "Job #{num} finished by thread #{Thread.current[:id]}, Time:#{Time.now - t_start}\n"
+#   end
+# end
+#
+# puts "add task 1, Time:#{Time.now - t_start}\n"
+#
+# sleep 2
+#
+# 10.times do |i|
+#   pool.process(i+2) do |num|
+#     puts "Job #{num} finished, Time:#{Time.now - t_start}\n"
+#   end
+# end
+#
+# puts "add task 2, Time:#{Time.now - t_start}\n"
+#
+# pool.join
+#
+# at_exit { puts "exit, Time:#{Time.now - t_start}\n" }
