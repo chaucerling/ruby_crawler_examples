@@ -15,7 +15,7 @@ def goole_translate_en_to_zh(en)
   puts search_result.search('#result_box').text
 end
 
-# goole_translate_en_to_zh('hello world')
+goole_translate_en_to_zh('hello world')
 
 def github_login()
   agent = Mechanize.new do |agent|
@@ -43,4 +43,4 @@ def github_index()
   puts agent.get("https://github.com").search('.alert').text
 end
 
-github_index()
+# github_index()

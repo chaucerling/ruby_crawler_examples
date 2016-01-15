@@ -104,8 +104,7 @@ class JanDanCrawler
 
   def self.get_page_articles_by_doc(articles_doc)
     articles_doc.map do |article_doc|
-        parse_doc_to_article(article_doc)
-      end
+      parse_doc_to_article(article_doc)
     end
   end
 
@@ -125,7 +124,7 @@ date = Date.parse("2015-7-9")
 # File.write('articles-' << date.to_s, YAML.dump(articles))
 # time_e = Time.now
 # puts "spent #{time_e - time_s}s"
-#
+
 # time_s = Time.now
 # articles = JanDanCrawler.get_all_articles_by_date_2(date)
 # puts articles.size
